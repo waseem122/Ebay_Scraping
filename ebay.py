@@ -10,11 +10,20 @@ def get_data():
 
 def parse(soup):
     product_links = soup.find_all('div', class_ = 's-item__info clearfix')
+    product_list = []
     for i in product_links:
-        product = {
-            'title': i.find('div', class_ = 's-item__title').text,
-            'soldprice': i.find('span', class_ = 's-item__price').text,
-        }
-        print(product)
-    
-parse(get_data())
+        try:
+            products = {
+                'title': i.find('div', class_ = 's-item__title').text,
+                'soldprice': i.find('span', class_ = 's-item__price').text,
+                'soldDate': i.find('div', class_ = 's-item__caption').text,
+                'bids': i.find('span', class_ = 's-item__bids s-item__bidCount').text,
+                'link': i.find('a', class_ = 's-item__link')['href'],
+            }
+            product_list.append(products)
+        except:
+            pass
+        # print(product)
+    return product_list
+product_list = parse(get_data())
+print(product_list)
