@@ -25,5 +25,10 @@ def parse(soup):
             pass
         # print(product)
     return product_list
+
+def output(product_list):
+    df = pd.DataFrame(product_list)
+    print(df)
+
 product_list = parse(get_data())
-print(product_list)
+output(product_list)
